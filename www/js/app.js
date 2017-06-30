@@ -32,6 +32,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
+  .state('app.init', {
+    url: '/init',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/init.html'
+        }
+    }
+  })
   .state('app.search', {
     url: '/search',
     views: {
@@ -41,33 +49,73 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+    .state('app.categories', {
+      url: '/categories',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/categories.html',
+          controller: 'CategoriesCtrl'
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.amulen', {
+      url: '/amulen',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+            templateUrl: 'templates/amulen.html',
+            controller: 'AmulenCtrl'
+        }
+      },
+      resolve: {
+        getAmulen:  function($http){
+          return $http({
+              method: 'GET',
+              url: 'http://74.207.253.57/hanga_test/api/public'})
+              .then (function (data) {
+                  return data.data;
+              });
+        }
+      }
+    })
+    .state('app.sources', {
+      url: '/sources/:categoryId',
+      views: {
+        'menuContent': {
+            templateUrl: 'templates/sources.html',
+            controller: 'SourcesCtrl'
+        }
+      },
+      resolve: {
+        getSources:  function($http, $stateParams){
+          return $http({
+              method: 'GET',
+              url: 'https://newsapi.org/v1/sources?language=en&country=us&category='+$stateParams.categoryId})
+              .then (function (data) {
+                  return data.data.sources;
+              });
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.articles', {
+    url: '/articles/:sourceId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/articles.html',
+        controller: 'ArticlesCtrl'
+      }
+    },
+    resolve: {
+      getArticles:  function($http, $stateParams){
+        return $http({
+          method: 'GET',
+          url: 'https://newsapi.org/v1/articles?apiKey=5aeff1dfaee8482ca33d63caeb22bfae&source='+$stateParams.sourceId})
+          .then (function (data) {
+            return data.data;
+          });
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/init');
 });

@@ -1,0 +1,20 @@
+<ion-view view-title="Articles">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="article in articles" href="#/app/articles/{{article.id}}">
+        <div class="item item-avatar">
+          <img src="https://randomuser.me/api/portraits/men/{{$index + 1}}.jpg">
+          <p ng-show="article.author">{{article.author}}</p>
+          <p ng-hide="article.author">Anónimo</p>
+          <h2>{{article.publishedAt | date : "shortDate"}}</h2>
+        </div>
+        <div class="item item-body">
+          <h2>{{article.title}}</h2>
+          <img class="full-image" ng-src="{{article.urlToImage}}">
+          <p>{{article.description}}</p>
+        </div>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

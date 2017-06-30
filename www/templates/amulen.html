@@ -1,0 +1,18 @@
+<ion-view view-title="Articles">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="post in posts" href="#/app/articles/{{article.id}}">
+        <div class="item item-avatar">
+          <img src="https://randomuser.me/api/portraits/men/{{$index + 1}}.jpg">
+          <p>Anónimo</p>
+          <h2>{{post.post.created | date : "shortDate"}}</h2>
+        </div>
+        <div class="item item-body">
+          <h2>{{post.post.title}}</h2>
+          <img class="full-image" ng-src="{{post.post.image}}">
+        </div>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

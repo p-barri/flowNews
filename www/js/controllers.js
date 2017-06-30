@@ -12,45 +12,38 @@ angular.module('starter.controllers', [])
   // Form data for the login modal
   $scope.loginData = {};
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+    $scope.categories = [
+        { title: 'Negocios', id: 'business', icon: 'icon ion-ios-briefcase', color: 'red' },
+        { title: 'Entretenimiento', id: 'entertainment', icon: 'icon ion-social-freebsd-devil', color: 'blue' },
+        { title: 'Gaming', id: 'gaming', icon: 'icon ion-ios-game-controller-b', color: 'green' },
+        { title: 'General', id: 'general', icon: 'icon ion-flag', color: 'orange' },
+        { title: 'Musica', id: 'music', icon: 'icon ion-headphone', color: 'red' },
+        { title: 'Politica', id: 'politics', icon: 'icon ion-code-working', color: 'blue' },
+        { title: 'Deportes', id: 'sport', icon: 'icon ion-ios-football', color: 'green' },
+        { title: 'Tecno', id: 'technology', icon: 'icon ion-paper-airplane', color: 'orange' }
+    ];
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('CategoriesCtrl', function($scope) {
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('SourcesCtrl', function($scope, $stateParams, getSources) {
+  if(getSources[0]){
+    $scope.category = getSources[0].category;
+  }
+  $scope.sources = getSources;
+})
+
+
+.controller('ArticlesCtrl', function($scope, $stateParams, getArticles) {
+    $scope.articles = getArticles.articles;
+})
+
+.controller('loginCtrl', function($scope, $stateParams, getSources) {
+    $scope.sources = getSources;
+})
+
+.controller('AmulenCtrl', function($scope, $stateParams, getAmulen) {
+    console.log(getAmulen);
+    $scope.posts = getAmulen;
 });

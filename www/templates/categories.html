@@ -1,0 +1,13 @@
+<ion-view view-title="Categories">
+    <ion-content class="text-center">
+        <a class="card col col-40" ng-repeat="category in categories" href="#/app/sources/{{category.id}}" style="display: inline-block;text-decoration: none;">
+            <div class="item item-text-wrap text-center" style=" font-size: 30pt;">
+                <i class="{{category.icon}}" style="color: {{category.color}};"></i>
+                <p style="font-weight: bold;">{{category.title}}</p>
+            </div>
+        </a>
+    </ion-content>
+</ion-view>
+
+
+
